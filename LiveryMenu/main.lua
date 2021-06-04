@@ -1,6 +1,6 @@
-RMenu.Add('LiveryMenu', 'main', RageUI.CreateMenu("Livery Menu", "~w~Livery Menu", 1350, 10))
+RMenu.Add('LiveryMenu', 'main', RageUI.CreateMenu(cfg.menuname, cfg.menusub, 1350, 10)) 
 
-RMenu.Add('LiveryMenu', 'submain', RageUI.CreateSubMenu(RMenu:Get('LiveryMenu', 'main'), "Livery Options", "~w~Infinite Livery Options", 1350, 10))
+RMenu.Add('LiveryMenu', 'submain', RageUI.CreateSubMenu(RMenu:Get('LiveryMenu', 'main'), cfg.menuname, cfg.menusub, 1350, 10))
 
 
 RageUI.CreateWhile(1.0, RMenu:Get('LiveryMenu', 'main'), nil, function()
@@ -12,13 +12,13 @@ RageUI.CreateWhile(1.0, RMenu:Get('LiveryMenu', 'main'), nil, function()
         
        end, function()
     end)
-    LiveryOptions()    
+    LiveryOptions()  -- [Function for Opening the Actual Livery Number Menu] 
 end)
 
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(1)
-        if IsControlPressed(0, 121, true) and IsPedInAnyVehicle(GetPlayerPed(-1), false) then
+        if IsControlPressed(0, cfg.control, true) and IsPedInAnyVehicle(GetPlayerPed(-1), false) then -- [What Bind Triggers the Menu to open. Deafult : 121 (Insert)] - Can be Edited in Config
 
             RageUI.Visible(RMenu:Get("LiveryMenu", "main"), true)
 
@@ -26,7 +26,7 @@ Citizen.CreateThread(function()
     end
 end)
 
-function LiveryOptions() 
+function LiveryOptions() -- [Livery Options Function]
     RageUI.IsVisible(RMenu:Get('LiveryMenu', 'submain'), true, false, true, function()
 
         print(tostring(GetVehicleLiveryCount(Vehicle)))
@@ -44,8 +44,3 @@ function LiveryOptions()
     end)
 end
 
-function notify(string)
-    SetNotificationTextEntry("STRING")
-    AddTextComponentString(string)
-    DrawNotification(true, false)
-end
