@@ -1,14 +1,14 @@
-RMenu.Add('LiveryMenu', 'main', RageUI.CreateMenu(cfg.menuname, cfg.menusub, 1350, 10)) 
+RMenu.Add('LiveryMenu', 'MainMenu', RageUI.CreateMenu(cfg.menuname, cfg.menusub, 1350, 10)) 
 
-RMenu.Add('LiveryMenu', 'submain', RageUI.CreateSubMenu(RMenu:Get('LiveryMenu', 'main'), cfg.menuname, cfg.menusub, 1350, 10))
+RMenu.Add('LiveryMenu', 'OptionsMenu', RageUI.CreateSubMenu(RMenu:Get('LiveryMenu', 'MainMenu'), cfg.menuname, cfg.menusub, 1350, 10))
 
 
-RageUI.CreateWhile(1.0, RMenu:Get('LiveryMenu', 'main'), nil, function()
-    RageUI.IsVisible(RMenu:Get('LiveryMenu', 'main'), true, false, true, function()
+RageUI.CreateWhile(1.0, RMenu:Get('LiveryMenu', 'MainMenu'), nil, function()
+    RageUI.IsVisible(RMenu:Get('LiveryMenu', 'MainMenu'), true, false, true, function()
 
         RageUI.Button("Livery Options" , nil, {RightLabel = "→→→",}, true, function(Hovered, Active, Selected)
         
-        end, RMenu:Get('LiveryMenu', 'submain'))
+        end, RMenu:Get('LiveryMenu', 'OptionsMenu'))
         
        end, function()
     end)
@@ -20,14 +20,14 @@ Citizen.CreateThread(function()
         Citizen.Wait(1)
         if IsControlPressed(0, cfg.control, true) and IsPedInAnyVehicle(GetPlayerPed(-1), false) then -- [What Bind Triggers the Menu to open. Deafult : 121 (Insert)] - Can be Edited in Config
 
-            RageUI.Visible(RMenu:Get("LiveryMenu", "main"), true)
+            RageUI.Visible(RMenu:Get("LiveryMenu", "MainMenu"), true)
 
         end
     end
 end)
 
 function LiveryOptions() -- [Livery Options Function]
-    RageUI.IsVisible(RMenu:Get('LiveryMenu', 'submain'), true, false, true, function()
+    RageUI.IsVisible(RMenu:Get('LiveryMenu', 'OptionsMenu'), true, false, true, function()
 
         print(tostring(GetVehicleLiveryCount(Vehicle)))
         local Vehicle = GetVehiclePedIsIn(GetPlayerPed(-1), false)
